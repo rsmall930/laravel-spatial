@@ -1,5 +1,5 @@
 {
-  "name": "apptimists/laravel-spatial",
+  "name": "danhunsaker/laravel-spatial",
   "description": "Spatial data types extension for Laravel.",
   "type": "library",
   "license": "MIT",
@@ -7,15 +7,22 @@
     {
       "name": "Johannes Berdin",
       "email": "ich@johannesberdin.de"
+    },
+    {
+      "name": "Dan Hunsaker",
+      "email": "danhunsaker@gmail.com"
     }
   ],
   "require": {
-    "php": ">=5.6.4",
+    "php": "^5.6.4|^7.0",
+    "doctrine/dbal": "^2.5",
+    "funiq/geophp": "dev-master",
     "illuminate/database": "^5.3",
-    "jmikola/geojson": "^1.0",
-    "phayes/geophp": "^1.2"
+    "jmikola/geojson": "^1.0"
   },
   "require-dev": {
+    "laravel/browser-kit-testing": "^2.0",
+    "laravel/laravel": "^5.3",
     "mockery/mockery": "0.9.*",
     "phpunit/phpunit": "~5.0"
   },
@@ -23,6 +30,12 @@
     "psr-4": {
       "LaravelSpatial\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/Unit",
+      "tests/Integration"
+    ]
   },
   "extra": {
     "laravel": {

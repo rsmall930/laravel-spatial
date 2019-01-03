@@ -1,6 +1,15 @@
 # Laravel Spatial extension
 
-This package is fully untested, undocumented and unstable and is a combination of the two great packages:
+[![](https://img.shields.io/packagist/l/danhunsaker/laravel-spatial.svg?style=flat-square)](https://packagist.org/packages/danhunsaker/laravel-spatial)
+[![](https://img.shields.io/packagist/php-v/danhunsaker/laravel-spatial.svg?style=flat-square)](https://packagist.org/packages/danhunsaker/laravel-spatial)
+[![](https://img.shields.io/packagist/v/danhunsaker/laravel-spatial.svg?style=flat-square)](https://packagist.org/packages/danhunsaker/laravel-spatial)
+[![](https://img.shields.io/packagist/dt/danhunsaker/laravel-spatial.svg?style=flat-square)](https://packagist.org/packages/danhunsaker/laravel-spatial)
+
+[![](https://img.shields.io/travis/danhunsaker/laravel-spatial.svg?style=flat-square)](https://github.com/danhunsaker/laravel-spatial)
+[![](https://img.shields.io/codecov/c/github/danhunsaker/laravel-spatial.svg?style=flat-square)](https://codecov.io/gh/danhunsaker/laravel-spatial)
+[![](https://img.shields.io/scrutinizer/g/danhunsaker/laravel-spatial.svg?style=flat-square)](https://scrutinizer-ci.com/g/danhunsaker/laravel-spatial/)
+
+This package is fully undocumented and unstable, and is a combination of the two great packages:
 
 -   [Laravel PostGIS extension](https://github.com/njbarrett/laravel-postgis)
 -   [Laravel MySQL spatial extension](https://github.com/grimzy/laravel-mysql-spatial)
@@ -10,7 +19,7 @@ This package is fully untested, undocumented and unstable and is a combination o
 Installation made super-easy with [composer](https://getcomposer.org):
 
 ```bash
-composer require apptimists/laravel-spatial
+composer require danhunsaker/laravel-spatial
 ```
 
 If you're using a Laravel version before 5.5, also add the `LaravelSpatial\SpatialServiceProvider::class` to your `config/app.php`.
