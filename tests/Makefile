@@ -43,7 +43,7 @@ start_db_postgres:
 
 build_php:
 	@echo Building Php $(phpV)
-	docker build --rm -t spatial-php --build-arg PHP_VERSION=$(phpV) ./php
+	docker build --rm -t spatial-php:$(phpV) --build-arg PHP_VERSION=$(phpV) ./php
 
 rm_db_mysql:
 	docker stop spatial-mysql || true

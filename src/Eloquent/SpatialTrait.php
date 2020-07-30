@@ -172,12 +172,12 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      * @param $distance
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistance($query, $geometryColumn, $geometry, $distance): EloquentBuilder
+    public function scopeDistance(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $distance): EloquentBuilder
     {
         if ($this->isColumnAllowed($geometryColumn)) {
             $geometryColumn .= $this->getConnection() instanceof PostgresConnection ? '::geometry' : '';
@@ -193,12 +193,12 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      * @param $distance
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceExcludingSelf($query, $geometryColumn, $geometry, $distance): EloquentBuilder
+    public function scopeDistanceExcludingSelf(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $distance): EloquentBuilder
     {
         if ($this->isColumnAllowed($geometryColumn)) {
             $query = $this->scopeDistance($query, $geometryColumn, $geometry, $distance);
@@ -215,11 +215,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceValue($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeDistanceValue(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         if ($this->isColumnAllowed($geometryColumn)) {
             $columns = $query->getQuery()->columns;
@@ -240,12 +240,12 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      * @param $distance
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceSphere($query, $geometryColumn, $geometry, $distance): EloquentBuilder
+    public function scopeDistanceSphere(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $distance): EloquentBuilder
     {
         $distFunc = $this->getConnection() instanceof PostgresConnection ? 'ST_DistanceSphere' : 'ST_Distance_Sphere';
 
@@ -263,12 +263,12 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      * @param $distance
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceSphereExcludingSelf($query, $geometryColumn, $geometry, $distance): EloquentBuilder
+    public function scopeDistanceSphereExcludingSelf(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $distance): EloquentBuilder
     {
         $distFunc = $this->getConnection() instanceof PostgresConnection ? 'ST_DistanceSphere' : 'ST_Distance_Sphere';
 
@@ -287,11 +287,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceSphereValue($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeDistanceSphereValue(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         $distFunc = $this->getConnection() instanceof PostgresConnection ? 'ST_DistanceSphere' : 'ST_Distance_Sphere';
 
@@ -314,12 +314,12 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      * @param $relationship
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeComparison($query, $geometryColumn, $geometry, $relationship): EloquentBuilder
+    public function scopeComparison(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $relationship): EloquentBuilder
     {
         if ($this->isColumnAllowed($geometryColumn)) {
             $relationship = ucfirst(strtolower($relationship));
@@ -344,7 +344,7 @@ trait SpatialTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWithin($query, $geometryColumn, $polygon): EloquentBuilder
+    public function scopeWithin(EloquentBuilder $query, $geometryColumn, Geometry $polygon): EloquentBuilder
     {
         return $this->scopeComparison($query, $geometryColumn, $polygon, 'within');
     }
@@ -352,11 +352,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeCrosses($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeCrosses(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         return $this->scopeComparison($query, $geometryColumn, $geometry, 'crosses');
     }
@@ -364,11 +364,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeContains($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeContains(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         return $this->scopeComparison($query, $geometryColumn, $geometry, 'contains');
     }
@@ -376,11 +376,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDisjoint($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeDisjoint(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         return $this->scopeComparison($query, $geometryColumn, $geometry, 'disjoint');
     }
@@ -388,11 +388,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeEquals($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeEquals(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         return $this->scopeComparison($query, $geometryColumn, $geometry, 'equals');
     }
@@ -400,11 +400,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeIntersects($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeIntersects(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         return $this->scopeComparison($query, $geometryColumn, $geometry, 'intersects');
     }
@@ -412,11 +412,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOverlaps($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeOverlaps(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         return $this->scopeComparison($query, $geometryColumn, $geometry, 'overlaps');
     }
@@ -424,11 +424,11 @@ trait SpatialTrait
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param $geometryColumn
-     * @param $geometry
+     * @param \GeoJSON\Geometry\Geometry $geometry
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDoesTouch($query, $geometryColumn, $geometry): EloquentBuilder
+    public function scopeDoesTouch(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
     {
         return $this->scopeComparison($query, $geometryColumn, $geometry, 'touches');
     }
