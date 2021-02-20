@@ -21,7 +21,7 @@ class ConnectionFactory extends \Illuminate\Database\Connectors\ConnectionFactor
      * @param array        $config
      *
      * @return \Illuminate\Database\ConnectionInterface
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
     protected function createConnection($driver, $connection, $database, $prefix = '', array $config = [])
     {
