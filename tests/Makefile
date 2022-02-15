@@ -9,13 +9,14 @@ mDB_DIR=$(shell pwd)/_mdb-$(mV)
 pV=10
 pDB_DIR=$(shell pwd)/_pdb-$(pV)
 
-phpV=7.4
+phpV=8.0
 
 start_db_mysql:
 	@echo Starting MySQL $(oV)
+	docker volume create laravel-spatial__mysql
 	docker run --rm -d --name spatial-mysql \
     -p 3306:3306 \
-    -v $(oDB_DIR):/var/lib/mysql \
+    -v laravel-spatial__mysql:/var/lib/mysql \
 		--health-cmd='mysqladmin ping --silent && mysql -e "use spatial_test;"' \
     -e MYSQL_DATABASE=spatial_test \
     -e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
@@ -23,9 +24,10 @@ start_db_mysql:
 
 start_db_maria:
 	@echo Starting MariaDB $(mV)
+	docker volume create laravel-spatial__maria
 	docker run --rm -d --name spatial-mysql \
 		-p 3306:3306 \
-		-v $(mDB_DIR):/var/lib/mysql \
+		-v laravel-spatial__maria:/var/lib/mysql \
 		--health-cmd='mysqladmin ping --silent && mysql -e "use spatial_test;"' \
 		-e MYSQL_DATABASE=spatial_test \
 		-e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
@@ -33,9 +35,10 @@ start_db_maria:
 
 start_db_postgres:
 	@echo Starting Postgres $(pV)
+	docker volume create laravel-spatial__postgres
 	docker run --rm -d --name spatial-postgres \
 		-p 5432:5432 \
-		-v $(pDB_DIR):/var/lib/postgresql/data \
+		-v laravel-spatial__postgres:/var/lib/postgresql/data \
 		--health-cmd='if [[ $(pV) -ge 9.3 ]]; then pg_isready -U postgres; else psql -U postgres -c "SELECT 1"; fi' \
 		-e POSTGRES_DB=spatial_test \
 		-e POSTGRES_PASSWORD="" \
@@ -47,15 +50,15 @@ build_php:
 
 rm_db_mysql:
 	docker stop spatial-mysql || true
-	sudo rm -Rf $(oDB_DIR)
+	docker volume rm laravel-spatial__mysql
 
 rm_db_maria:
 	docker stop spatial-mysql || true
-	sudo rm -Rf $(mDB_DIR)
+	docker volume rm laravel-spatial__maria
 
 rm_db_postgres:
 	docker stop spatial-postgres || true
-	sudo rm -Rf $(pDB_DIR)
+	docker volume rm laravel-spatial__postgres
 
 refresh_db_mysql: rm_db_mysql start_db_mysql
 

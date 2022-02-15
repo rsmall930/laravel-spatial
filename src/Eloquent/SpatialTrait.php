@@ -16,7 +16,6 @@ use LaravelSpatial\Exceptions\UnknownSpatialRelationFunction;
 /**
  * Trait SpatialTrait.
  *
- * @property array $attributes
  * @method static static|EloquentBuilder distance($geometryColumn, $geometry, $distance)
  * @method static static|EloquentBuilder distanceValue($geometryColumn, $geometry)
  * @method static static|EloquentBuilder distanceExcludingSelf($geometryColumn, $geometry, $distance)
@@ -191,8 +190,12 @@ trait SpatialTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistance(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $distance): EloquentBuilder
-    {
+    public function scopeDistance(
+        EloquentBuilder $query,
+        $geometryColumn,
+        Geometry $geometry,
+        $distance
+    ): EloquentBuilder {
         if ($this->isColumnAllowed($geometryColumn)) {
             $geometryColumn .= $this->getConnection() instanceof PostgresConnection ? '::geometry' : '';
             $query->whereRaw("ST_Distance({$geometryColumn}, ST_GeomFromText(?)) <= ?", [
@@ -212,8 +215,12 @@ trait SpatialTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceExcludingSelf(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $distance): EloquentBuilder
-    {
+    public function scopeDistanceExcludingSelf(
+        EloquentBuilder $query,
+        $geometryColumn,
+        Geometry $geometry,
+        $distance
+    ): EloquentBuilder {
         if ($this->isColumnAllowed($geometryColumn)) {
             $query = $this->scopeDistance($query, $geometryColumn, $geometry, $distance);
 
@@ -259,8 +266,12 @@ trait SpatialTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceSphere(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $distance): EloquentBuilder
-    {
+    public function scopeDistanceSphere(
+        EloquentBuilder $query,
+        $geometryColumn,
+        Geometry $geometry,
+        $distance
+    ): EloquentBuilder {
         $distFunc = $this->getConnection() instanceof PostgresConnection ? 'ST_DistanceSphere' : 'ST_Distance_Sphere';
 
         if ($this->isColumnAllowed($geometryColumn)) {
@@ -282,8 +293,12 @@ trait SpatialTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceSphereExcludingSelf(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $distance): EloquentBuilder
-    {
+    public function scopeDistanceSphereExcludingSelf(
+        EloquentBuilder $query,
+        $geometryColumn,
+        Geometry $geometry,
+        $distance
+    ): EloquentBuilder {
         $distFunc = $this->getConnection() instanceof PostgresConnection ? 'ST_DistanceSphere' : 'ST_Distance_Sphere';
 
         if ($this->isColumnAllowed($geometryColumn)) {
@@ -305,8 +320,11 @@ trait SpatialTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeDistanceSphereValue(EloquentBuilder $query, $geometryColumn, Geometry $geometry): EloquentBuilder
-    {
+    public function scopeDistanceSphereValue(
+        EloquentBuilder $query,
+        $geometryColumn,
+        Geometry $geometry
+    ): EloquentBuilder {
         $distFunc = $this->getConnection() instanceof PostgresConnection ? 'ST_DistanceSphere' : 'ST_Distance_Sphere';
 
         if ($this->isColumnAllowed($geometryColumn)) {
@@ -333,8 +351,12 @@ trait SpatialTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeComparison(EloquentBuilder $query, $geometryColumn, Geometry $geometry, $relationship): EloquentBuilder
-    {
+    public function scopeComparison(
+        EloquentBuilder $query,
+        $geometryColumn,
+        Geometry $geometry,
+        $relationship
+    ): EloquentBuilder {
         if ($this->isColumnAllowed($geometryColumn)) {
             $relationship = ucfirst(strtolower($relationship));
 

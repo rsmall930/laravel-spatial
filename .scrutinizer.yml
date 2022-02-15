@@ -9,11 +9,11 @@ build:
           - php-scrutinizer-run
           - command: phpcs-run
             use_website_config: false
-    php74:
+    php80:
       environment:
         docker: true
         php:
-          version: 7.4
+          version: 8.0
       dependencies:
         before:
           - sudo service mysql stop
@@ -25,11 +25,11 @@ build:
             coverage:
               file: my-coverage-file
               format: php-clover
-    php80:
+    php81:
       environment:
         docker: true
         php:
-          version: 8.0
+          version: 8.1
       dependencies:
         before:
           - sudo service mysql stop

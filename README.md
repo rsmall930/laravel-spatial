@@ -83,3 +83,13 @@ $eloquent->location = new Point([49.7, 6.9]);
 
 $eloquent->save();
 ```
+
+## Development
+
+### Running Tests
+
+Docker is required for running the test suite.  Use `make` to run the base test suite.
+
+```bash
+make -C tests/ run_tests
+```
