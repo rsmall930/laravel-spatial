@@ -17,7 +17,6 @@
     "php": "^8.0",
     "doctrine/dbal": "^2.5 || ^3.0",
     "funiq/geophp": "^2.0",
-    "illuminate/database": "^9.0",
     "jmikola/geojson": "^1.0",
     "ext-pdo": "*",
     "ext-json": "*"
